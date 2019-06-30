@@ -1,25 +1,35 @@
 {% extends 'groups/group_base.html' %}
 {% block pregroup %}
-<h1>{{group.name}}</h1>
-<h2>Member Count: {{group.members.count}}</h2>
-<div class="content">
-	{% if user in group.members.all %}
-		<a href="{% url 'groups:leave' slug = group.slug %}" class = 'btn btn-warning btn-lg'>
-		<i class="fas fa-user-minus"></i>Leave Group</a>
-	{% else %}
-		<a href="{% url 'groups:join' slug = group.slug %}" class = 'btn btn-success btn-lg'>
-		<i class="fas fa-user-plus"></i>Join Group</a>
-	{% endif %}
-</div>
-{% endblock pregroup %}
-{% block group_content %}
-	<div class="col-md-8">
-		{% if group.posts.count ==0 %}
-			<h2>No Posts in this group yet!</h2>
+<div class="container">
+	<h2>{{group.name}}</h2>
+	<h3>Member Count: {{group.members.count}}</h3>
+
+	<div class="content">
+		{% if user in group.members.all %}
+			<a href="{% url 'groups:leave' slug=group.slug %}" class = "btn btn-warning">
+				<i class="fas fa-user-minus"></i> Leave Group
+			</a>
 		{% else %}
-			{% for post in group.posts.all %}
-				{% include "posts/_post.html" %}
-			{% endfor %}
+			<a href="{% url 'groups:join' slug=group.slug %}" class = "btn btn-warning btn-lg">
+				<i class="fas fa-user-plus"></i> Join Group
+			</a>
 		{% endif %}
 	</div>
-{% endblock group_content %}
+	{% endblock pregroup %}
+
+	<div class="container">
+		{% block group_content %}
+			<div class="col-md-8">
+				{% if group.posts.count == 0 %}
+					<br>
+					<h4>No Posts in this group yet!</h4>
+				{% else %}
+					<br>
+					{% for post in group.posts.all %}
+						{% include "posts/_post.html" %}
+					{% endfor %}
+				{% endif %}
+			</div>
+		{% endblock group_content %}
+	</div>
+</div>

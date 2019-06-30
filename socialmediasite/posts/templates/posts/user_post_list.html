@@ -1,15 +1,15 @@
 {% extends 'posts/post_base.html' %}
 {% block prepost %}
-	<div class="col-md-4">
+	{% comment %} <div class="col-md-4"> {% endcomment %}
 		<h1>@{{post_user.username}}</h1>
-
-	</div>
+		<p>Post History</p>
+	{% comment %} </div> {% endcomment %}
 {% endblock prepost %}
 
 {% block post_content %}
-<div class="col-md-8">
+{% comment %} <div class="col-md-8"> {% endcomment %}
 	{% for post in post_list %}
 		{% include "posts/_post.html" %}
 	{% endfor %}
-</div>
+{% comment %} </div> {% endcomment %}
 {% endblock post_content %}
